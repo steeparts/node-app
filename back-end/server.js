@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // Основные маршруты
 const render = require('./libs/render');
-const { public, home, constructor, auth, game, tooltip, notFound } = require('./routes');
+const { public, home, constructor, auth, game, tooltip, finish,  notFound } = require('./routes');
 
 const timer = require('./libs/timer');
 
@@ -11,12 +11,13 @@ http.ServerResponse.prototype.render = render;
 http.ServerResponse.prototype.timer = timer;
 
 http.createServer((req, res) => {
-    if (req.url.match(/.(css|js)$/)) {
+    if (req.url.match(/.(css|js|png)$/)) {
         public(req, res);
     } else if (req.url === '/') {
         res.writeHead(302, {'Content-Type': 'text/plain', 'Location': '/auth'});
         return res.end();
-        //home(req, res);
+    } else if (req.url === '/stats?key=HDyq8dfZ') {
+        home(req, res);
     } else if (req.url === '/admin?key=HDyq8dfZ') {
         if (req.method === 'POST') {
             const tasks = require('./libs/tasks');
@@ -42,6 +43,8 @@ http.createServer((req, res) => {
             game(req, res);
     } else if (req.url.startsWith('/ajax/get_tooltip')) {
         tooltip(req, res);
+    } else if (req.url === '/finish') {
+        finish(req, res);
     } else {
         notFound(req, res);
     }

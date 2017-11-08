@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<title>Application.Game</title>
 	<link rel="stylesheet" href="css/styles.min.css">
 </head>
@@ -16,6 +15,7 @@
 			</div>
 			<form method="post" id="form-game" class="form">
 				<div class="form__task">{{text}}</div>
+				<div class="form__tooltips">{{db_tooltips}}</div>
 				<div class="form__errors" {{err_style}}>{{err_text}}</div>
 				<div class="form__fields">
 					<input type="hidden" name="login" value="{{login}}">
@@ -77,13 +77,13 @@
 				$('#form-game input[name=score]').val(glob_time.toString());
 
 				if (task_sec == interval * 60)
-					ajax_tooltip({{id}}, 1);
+					ajax_tooltip(login, {{id}}, 1);
 
 				if (task_sec == interval * 120)
-					ajax_tooltip({{id}}, 2);
+					ajax_tooltip(login, {{id}}, 2);
 
 				if (task_sec == interval * 180)
-					ajax_tooltip({{id}}, 3);
+					ajax_tooltip(login, {{id}}, 3);
 
 				glob_sec++;
 				task_sec++;

@@ -38,7 +38,7 @@ function create(req, res) {
         }
 
         var cookies = new Cookies(req, res);
-        cookies.set('auth', login);
+        cookies.set('auth', login, { maxAge: 1*24*60*60*1000 }); // cookies.maxAge = 1 day
 
         var startStationID = getStartStation(login, res.timer.sec());
 
@@ -56,6 +56,7 @@ function create(req, res) {
                 active: (i == startStationID) ? true : false,
                 start: (i == startStationID) ? res.timer.sec() : '',
                 finished: false,
+                tooltips: []
             });
 
         users_db.get('users')
@@ -96,7 +97,7 @@ function update(req, res) {
 
                 writeToUsersLog(date_time.getCurrentDateTime() + ' user ' + login + ' has ended the game with score = ' + getUserScore(login));
 
-                res.writeHead(302, {'Content-Type': 'text/plain', 'Location': '/'});
+                res.writeHead(302, {'Content-Type': 'text/plain', 'Location': '/finish'});
                 return res.end();
             }
             else {
@@ -105,7 +106,7 @@ function update(req, res) {
                         .assign({ active: false, finished: true })
                         .write();
                 
-                var nextStationID = getNextStation(login, res.timer.sec());  // notFinishedStations(login)[0]-1;
+                var nextStationID = getNextStation(login, res.timer.sec());
 
                 users_db.get('users['+getUserId(login)+'].stations')
                         .find({ id: nextStationID+1 })                        
@@ -304,6 +305,28 @@ function getUserScore(login) {
     return users_db.get('users').find({ login: login }).value().score;
 }
 
+function getUserTooltips(login) {
+    return users_db.get('users['+getUserId(login)+'].stations')
+                   .find({ id: getUserActiveStationId(login)+1 })
+                   .value().tooltips;
+}
+
+function writeTooltip(login, tooltip_id, tooltip_text) {
+
+    var userTooltipList = users_db.get('users['+getUserId(login)+'].stations')
+                                  .find({ id: getUserActiveStationId(login)+1 })
+                                  .value().tooltips;
+
+    var tooltipsData = (userTooltipList.length == 0) ? [] : userTooltipList;
+
+    tooltipsData[tooltip_id-1] = tooltip_text;
+
+    return users_db.get('users['+getUserId(login)+'].stations')
+                   .find({ id: getUserActiveStationId(login)+1 })
+                   .set('tooltips', tooltipsData)
+                   .write();
+}
+
 // not for export
 function writeToUsersLog(log) {
     log += '\n';
@@ -324,5 +347,7 @@ module.exports = {
     getUserActiveStationId,
     getUserStationStartTime,
     getUserProgress,
-    getUserScore
+    getUserScore,
+    getUserTooltips,
+    writeTooltip
 };

@@ -28,6 +28,12 @@ $(function() {
 	});
 
 	// Login Form
+	$('#form-login input[name=login]').on('keyup', function() {
+		var reg = /[а-яА-ЯёЁ]/g; 
+		if ($(this).val().search(reg) !=  -1)
+			$(this).val($(this).val().replace(reg, ''));
+	});
+
 	$('#form-login').on('submit', function(e) {
 		e.preventDefault();
 		// проверка на пустоту
@@ -100,12 +106,15 @@ function toHms(_time, _sec) {
 	}
 }
 
-function ajax_tooltip(task_id, tooltip_id) {
+function ajax_tooltip(login, task_id, tooltip_id) {
 	
 	$(function() {
 		$.ajax({
-	    	url: "/ajax/get_tooltip?task_id="+task_id+"&tooltip_id="+tooltip_id,
-	    	success: (data) => { showTooltip(data); }
+	    	url: "/ajax/get_tooltip?login="+login+"&task_id="+task_id+"&tooltip_id="+tooltip_id,
+	    	success: (data) => {
+	    		showTooltip(data);	    		
+	    		$('.form__tooltips').append('\n<div class="form__tooltips-elem">' + (data) + '</div><!-- /form__tooltips-elem -->\n');
+	    	}
 		});
 	});
 
@@ -123,4 +132,5 @@ function showTooltip(text) {
         }, 200)
         .find('.modal__content').text(text);
     });
+    setTimeout(function() { $('#tooltip-modal .modal__close').click() }, 5000);
 }

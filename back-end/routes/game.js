@@ -16,11 +16,19 @@ function game(req, res) {
 		const users = require('../libs/users');
 		var stationID = users.getUserActiveStationId(currentUserLogin);
 
+		var htmlTooltips = ' ';
+		var userTooltips = users.getUserTooltips(currentUserLogin);
+
+		if (userTooltips.length > 0)
+			for (var i = 0; i < userTooltips.length; i++)
+				htmlTooltips += '\n<div class="form__tooltips-elem">' + (userTooltips[i]) + '</div><!-- /form__tooltips-elem -->\n';
+
 		const parsedUrl = url.parse(req.url, true)
 		var result = { 
 			id: tasks.getOne(stationID+1).id,
 			login: currentUserLogin,
 			text: tasks.getOne(stationID+1).text,
+			db_tooltips: htmlTooltips,
 			task_time: users.getUserStationStartTime(currentUserLogin, stationID+1),
 			total_time: users.getUserStartTime(currentUserLogin),
 			server_time: res.timer.sec(),

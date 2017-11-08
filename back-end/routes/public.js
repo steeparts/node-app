@@ -9,6 +9,7 @@ function public(req, res) {
 	switch(ext) {
 		case '.css' : contentType = 'text/css'; break;
 		case '.js' : contentType = 'text/javascript'; break;
+		case '.png' : contentType = 'image/png'; break;
 		default : contentType = 'text/plain'; break;
 	}
 
