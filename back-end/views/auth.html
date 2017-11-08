@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Application.Auth</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+</head>
+<body onload="$(function(){ $('.form__input[type=text]').focus() })">
+	<div class="wrapper">
+		<main class="main">
+			<h1 class="title">Авторизация</h1>
+			<form action="/auth" method="post" id="form-login" class="form">
+				<div class="form__errors" {{style}}>{{error}}</div>
+				<div class="form__fields">
+					<input type="text" name="login" autocomplete="off" placeholder="Придумайте логин" class="form__input">
+					<input type="submit" value="Далее" class="form__input form__submit">
+				</div><!-- /form__fields -->
+			</form><!-- /form-login -->
+		</main>
+	</div><!-- /wrapper -->
+
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</body>
+</html>

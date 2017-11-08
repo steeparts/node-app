@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Application</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+</head>
+<body>
+	<div class="wrapper">
+		<main class="main constructor">
+			<h1 class="title">Конструктор</h1>			
+			<form method="post" id="form-constructor" class="form">
+				<div class="form__errors"></div>
+				<div class="form__fields">
+					<div class="table table_colored">
+						<div class="table__header">
+							<div class="table__row">
+								<div class="table__col col-c col-1">#</div>
+								<div class="table__col col-c col-4">Задание</div>
+								<div class="table__col col-c col-2">Код</div>
+								<div class="table__col col-c col-5">Подсказки</div>
+							</div><!-- /table__row -->
+						</div><!-- /table__header -->
+						<div class="table__body">
+							<div class="table__row">
+								<div class="table__col col-c col-1">1</div>
+								<div class="table__col col-c col-4">
+									<input type="text" name="task-1" autocomplete="off" value="Задание 1" class="form__input table__input">
+								</div>
+								<div class="table__col col-c col-2">
+									<input type="text" name="code-1" autocomplete="off" value="Код 1" class="form__input table__input">
+								</div>
+								<div class="table__col col-c col-5">
+									<input type="text" name="tooltip-1_1" autocomplete="off" placeholder="help1" value="Подсказка 1" class="form__input table__input">
+									<input type="text" name="tooltip-1_2" autocomplete="off" placeholder="help2" value="" class="form__input table__input">
+									<input type="text" name="tooltip-1_3" autocomplete="off" placeholder="help3" value="" class="form__input table__input">
+								</div>
+							</div><!-- /table__row -->
+							<div class="table__row">
+								<div class="table__col col-c col-1">2</div>
+								<div class="table__col col-c col-4">
+									<input type="text" name="task-2" autocomplete="off" value="Задание 2" class="form__input table__input">
+								</div>
+								<div class="table__col col-c col-2">
+									<input type="text" name="code-2" autocomplete="off" value="Код 2" class="form__input table__input">
+								</div>
+								<div class="table__col col-c col-5">
+									<input type="text" name="tooltip-2_1" autocomplete="off" placeholder="help1" value="Подсказка 1" class="form__input table__input">
+									<input type="text" name="tooltip-2_2" autocomplete="off" placeholder="help2" value="" class="form__input table__input">
+									<input type="text" name="tooltip-2_3" autocomplete="off" placeholder="help3" value="" class="form__input table__input">
+								</div>
+							</div><!-- /table__row -->
+							<div class="table__row">
+								<div class="table__col col-c col-1">3</div>
+								<div class="table__col col-c col-4">
+									<input type="text" name="task-3" autocomplete="off" value="Задание 3" class="form__input table__input">
+								</div>
+								<div class="table__col col-c col-2">
+									<input type="text" name="code-13" autocomplete="off" value="Код 3" class="form__input table__input">
+								</div>
+								<div class="table__col col-c col-5">
+									<input type="text" name="tooltip-3_1" autocomplete="off" placeholder="help1" value="Подсказка 1" class="form__input table__input">
+									<input type="text" name="tooltip-3_2" autocomplete="off" placeholder="help2" value="Подсказка 2" class="form__input table__input">
+									<input type="text" name="tooltip-3_3" autocomplete="off" placeholder="help3" value="" class="form__input table__input">
+								</div>
+							</div><!-- /table__row -->
+						</div><!-- /table__body -->
+						<div class="table__footer">
+							<div class="table__row">
+								<div class="table__col col-r col-7">
+									<span class="table__text">Интервал для подсказок (мин):</span>
+								</div>
+								<div class="table__col col-5">
+									<input type="number" min="5" max="30" name="interval" autocomplete="off" value="15" class="form__input table__input">
+								</div>
+							</div><!-- /table__row -->
+							<div class="table__row">
+								<div class="table__col col-l col-9">
+									<input type="button" data-type="add" value="Добавить" class="form__input form__button">
+									<input type="button" data-type="reset" value="Сбросить" class="form__input form__button">
+									<input type="button" data-type="clear" value="Очистить" class="form__input form__button">
+								</div>
+								<div class="table__col col-r col-3">
+									<input type="submit" data-type="save" value="Сохранить" class="form__input form__submit">
+								</div>
+							</div><!-- /table__row -->
+						</div><!-- /table__footer -->
+					</div><!-- /table -->
+				</div><!-- /form__fields -->
+			</form><!-- /form-constructor -->
+		</main>
+	</div><!-- /wrapper -->
+
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</body>
+</html>

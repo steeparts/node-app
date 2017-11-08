@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Application.Index</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+</head>
+<body class="index">
+	<div class="wrapper">
+		<header class="header">
+			<a href="game" class="header__link">Let's Play</a>
+			<span class="header__info">Приложение использует cookies</span>
+		</header>
+		<main class="main">
+			<div class="main__stats">
+				<h1 class="title">Таблица участников</h1><br>
+				<div class="col-12 col-c">(в порядке регистрации)</div>
+				<div class="table table_colored">
+					<div class="table__header">
+						<div class="table__row">
+							<div class="table__col col-1">#</div>
+							<div class="table__col col-8">Игрок</div>
+							<div class="table__col col-3">Прогресс</div>
+						</div><!-- /table__row -->
+					</div><!-- /table__header -->
+					<div class="table__body">
+						{{table_data}}
+					</div><!-- /table__body -->
+				</div><!-- /table -->
+			</div><!-- /main__stats -->
+		</main>
+	</div><!-- /wrapper -->
+
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+
+	<script>
+		var table_nodata = '{{table_nodata}}';
+		if (table_nodata == 'true') {
+			$('.main .table').addClass('table_nodata');
+			$('.main .table').html('Нет данных');
+		}
+	</script>
+</body>
+</html>

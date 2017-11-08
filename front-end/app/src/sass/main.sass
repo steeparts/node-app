@@ -1,0 +1,262 @@
+// Vars
+$green: #2efda7
+$black: #4c4541
+$breeze: rgba(37, 146, 126, .59)
+$red: #d61f1f
+
+// General
+*
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+	font-family: monospace
+	font-size: 20px                   /* было 18 px*/
+	transition: all .2s ease-in
+	
+body
+	background: #024a84				/*был цвет $green*/
+	min-width: 320px
+	
+a
+	text-decoration: none
+	color: #fff
+
+// Main	
+.wrapper
+	max-width: 1020px
+	min-height: 100vh
+	height: 100%
+	margin: 0 auto
+	padding: 30px
+	display: flex
+	flex-direction: column
+	justify-content: center
+
+.index
+	.wrapper
+		height: auto
+		justify-content: baseline 		
+	
+.header
+	display: flex
+	justify-content: space-between
+	align-items: center
+	&__info
+		color: #fff
+	&__link
+		display: block
+		border-radius: 5px
+		font-size: 20px 
+		padding: 10px 20px
+		background: #ff5656				/* был цвет $black*/
+		color: #f7e2c9					/*был цвет #fff*/
+		&:hover 
+			opacity: .9
+			
+.title
+	font-size: 50px
+	position: relative
+	padding: 5px 0
+	text-align: center
+	color: #fff					/*этого свойства не было вообще*/
+	&:after
+		position: absolute
+		content: ''
+		left: 50%
+		bottom: 0 
+		width: 150px
+		margin-left: -75px
+		height: 1px
+		background: #2efda7				/*был цвет $breeze*/
+
+.main
+	margin-top: 20px
+	&__stats
+		display: flex
+		flex-direction: column
+
+.game
+	&__timer
+		color: #fff
+		font-size: 16px
+		text-align: center
+		width: 300px
+		margin: 10px auto
+		background: rgba(0,0,0,.3)
+		box-shadow: 0 0 10px #fff
+		visibility: hidden
+		#task_time, #total_time
+			font-size: 16px
+
+.table
+	margin-top: 40px
+	padding: 20px
+	display: flex
+	flex-direction: column
+	&_colored
+		border-radius: 7px
+		background: rgba(58, 74, 80, .3)
+	&_nodata
+		height: 250px
+		justify-content: center
+		align-items: center
+		font-size: 18px
+		color: #fff
+	&__header
+		color: #fff
+	&__row
+		display: flex
+		flex-direction: row
+		padding: 5px 
+		border-bottom: 1px solid $green
+	&__col
+		font-size: 25px
+		margin: 0 2px
+	&__input
+		width: 100% !important
+	&__text
+		display: block
+		padding: 12px 0
+		font-size: 18px 
+		
+.form
+	margin: 25px
+	height: 100px
+	display: flex
+	flex-direction: column
+	justify-content: space-around;
+	align-items: center
+	&__input
+		width: 280px
+		padding: 10px
+		margin: 2px 
+		outline: none
+		border: none
+	&__submit, &__button
+		width: 120px
+		margin: 2px 0
+		cursor: pointer
+		background: #ff5656					/*свойства не было*/
+		color: #f7e2c9					/*свойства не было*/
+		&:hover
+			opacity: .9 
+	&__errors
+		display: none
+		background: #ccc
+		margin: 10px 0
+		text-align: center
+		padding: 0 30px
+		color: $red
+	&__task
+		margin: 30px 0
+		
+.constructor, .game
+	.form
+		height: 100%
+		
+// Modal
+.modal
+	width: 300px
+	height: 200px
+	background: #fff
+	position: fixed
+	top: 50%
+	left: 50%
+	margin: -100px 0 0 -150px
+	display: none
+	opacity: 0
+	z-index: 20
+	padding: 30px
+	box-shadow: 0 0 16px $black
+	&__header
+		display: flex
+		justify-content: space-between
+	&__title
+		font-size: 18px
+		font-weight: bold
+	&__close
+		height: 24px
+		font-weight: bold
+		cursor: pointer
+		display: block
+		color: #ff4132
+		float: right
+	&__content
+		margin: 20px auto 0 auto
+		height: 100px
+		font-size: 18px 
+
+#overlay
+	z-index: 16
+	position: fixed
+	background: rgba(0, 0, 0, 0.3)
+	opacity: .8;
+	width: 100%
+	height: 100%
+	top: 0
+	left: 0
+	cursor: pointer
+	display: none
+	transition: none
+
+// Adaptive
+@media screen and (max-width: 480px)
+	*
+		font-size: 18px
+		
+	.header
+		flex-direction: column
+		align-items: center 
+		&__link
+			font-size: 15px !important
+			text-align: center
+			width: 200px
+			margin: 5px 0
+		&__info
+			font-size: 15px !important
+			
+	.table
+		&__col
+			font-size: 14px !important
+			
+	.form
+		margin: 10px
+		&__input
+			width: 170px
+		&__submit, &__button
+			width: 90px
+
+@media screen and (max-width: 650px)
+	.constructor
+		.table
+			&__header
+				display: none
+			&__row
+				flex-direction: column
+			&__col
+				width: 100% !important
+				text-align: center !important
+		.col-1
+			display: none
+
+@media screen and (max-width: 768px)
+	*
+		font-size: 18px 
+		
+	.wrapper
+		padding: 30px 10px 
+	
+	.title
+		font-size: 36px 
+		&:after
+			width: 100px
+			margin-left: -50px
+	
+	.header
+		&__play
+			font-size: 16px
+			
+	.table
+		margin-top: 20px
+		&__col
+			font-size: 16px

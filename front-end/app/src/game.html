@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Application</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+</head>
+<body>
+	<div class="wrapper">
+		<main class="main game">
+			<h1 class="title">Станция #1</h1>
+			<form method="post" id="form-game" class="form">
+				<div class="form__task">Задание на получение кода</div>
+				<div class="form__errors"></div>
+				<div class="form__fields">
+					<input type="text" name="code" autocomplete="off" placeholder="Введите код станции" class="form__input">
+					<input type="submit" value="Далее" class="form__input form__submit">
+				</div><!-- /form__fields -->
+			</form><!-- /form-game -->
+		</main>
+	</div><!-- /wrapper -->
+
+	<div id="tooltip-modal" class="modal">
+		<div class="modal__header">
+			<div class="modal__title">Подсказка</div>
+			<div class="modal__close">x</div>
+		</div><!-- /modal__header -->
+		<div class="modal__content">
+			Текст подсказки
+		</div><!-- /modal__content -->
+	</div><!-- /tooltip-modal -->
+	<div id="overlay"></div>
+
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Application.Constructor</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<a href="game" class="header__link">Let's Play</a>
+		</header>
+		<main class="main constructor">
+			<h1 class="title">Конструктор</h1>			
+			<form method="post" id="form-constructor" class="form">
+				<div class="form__errors"></div>
+				<div class="form__fields">
+					<div class="table table_colored">
+						<div class="table__header">
+							<div class="table__row">
+								<div class="table__col col-c col-1">#</div>
+								<div class="table__col col-c col-4">Задание</div>
+								<div class="table__col col-c col-2">Код</div>
+								<div class="table__col col-c col-5">Подсказки</div>
+							</div><!-- /table__row -->
+						</div><!-- /table__header -->
+						<div class="table__body">
+							{{table_data}}
+						</div><!-- /table__body -->
+						<div class="table__footer">
+							<div class="table__row">
+								<div class="table__col col-r col-7">
+									<span class="table__text">Интервал для подсказок (мин):</span>
+								</div>
+								<div class="table__col col-5">
+									<input type="number" min="0" step="0.1" name="interval" autocomplete="off" value="{{interval}}" class="form__input table__input">
+								</div>
+							</div><!-- /table__row -->
+							<div class="table__row">
+								<div class="table__col col-l col-9">
+									<input type="button" data-type="add" value="Добавить" class="form__input form__button">
+									<input type="button" data-type="clear" value="Сбросить" class="form__input form__button">
+								</div>
+								<div class="table__col col-r col-3">
+									<input type="submit" value="Сохранить" class="form__input form__submit">
+								</div>
+							</div><!-- /table__row -->
+						</div><!-- /table__footer -->
+					</div><!-- /table -->
+				</div><!-- /form__fields -->
+			</form><!-- /form-constructor -->
+		</main>
+	</div><!-- /wrapper -->
+
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</body>
+</html>
