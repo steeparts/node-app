@@ -74,7 +74,7 @@ $(function() {
 
     close.click(function() {
 		modal
-			.animate({opacity: 0, top: '50%'}, 200,
+			.animate({opacity: 0}, 200,
 			function() {
 				$(this).hide();
 				overlay.fadeOut(400);
@@ -113,7 +113,7 @@ function ajax_tooltip(login, task_id, tooltip_id) {
 	    	url: "/ajax/get_tooltip?login="+login+"&task_id="+task_id+"&tooltip_id="+tooltip_id,
 	    	success: (data) => {
 	    		showTooltip(data);	    		
-	    		$('.form__tooltips').append('\n<div class="form__tooltips-elem">' + (data) + '</div><!-- /form__tooltips-elem -->\n');
+	    		$('.form__tooltips').animate({opacity: 1}, 200).append('\n<div class="form__tooltips-elem">' + (data) + '</div><!-- /form__tooltips-elem -->\n');
 	    	}
 		});
 	});
@@ -126,10 +126,7 @@ function showTooltip(text) {
     function() {
         $(div)
         .css('display', 'block')
-        .animate({
-            opacity: 1,
-            top: '50%'
-        }, 200)
+        .animate({opacity: 1}, 200)
         .find('.modal__content').text(text);
     });
     setTimeout(function() { $('#tooltip-modal .modal__close').click() }, 5000);
