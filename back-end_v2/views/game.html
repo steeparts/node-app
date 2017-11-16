@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Application.Game</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+</head>
+<body onload="$(function(){ $('.form__input[type=text]').focus() })">
+	<div class="wrapper">
+		<main class="main game">
+			<h1 class="title">Станция #{{id}}</h1>
+			<div class="game__timer">
+				<span id="total_time" data-task="{{task_time}}" data-server="{{server_time}}">{{total_time}}</span><br>
+			</div>
+			<form method="post" id="form-game" class="form">
+				<div class="form__task">{{text}}</div>
+				<div class="form__tooltips"></div>
+				<div class="form__errors" {{err_style}}>{{err_text}}</div>
+				<div class="form__fields">
+					<input type="hidden" name="login" value="{{login}}">
+					<input type="hidden" name="stationID" value="{{id}}">
+					<input type="hidden" name="score">
+					<input type="text" name="code" autocomplete="off" placeholder="Введите код" class="form__input">
+					<input type="submit" value="Далее" class="form__input form__submit">
+				</div><!-- /form__fields -->
+			</form><!-- /form-game -->
+		</main>
+	</div><!-- /wrapper -->
+
+	<div id="tooltip-modal" class="modal" data-interval="{{interval}}">
+		<div class="modal__header">
+			<div class="modal__title">Подсказка</div>
+			<div class="modal__close">x</div>
+		</div><!-- /modal__header -->
+		<div class="modal__content">
+			Текст подсказки
+		</div><!-- /modal__content -->
+	</div><!-- /tooltip-modal -->
+	<div id="overlay"></div>
+
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/crypto.js"></script>
+
+	<script>
+		window.onload = function() {
+			var login = '{{login}}';
+			var interval = Number($('#tooltip-modal').data('interval'));
+			var glob_sec = Number($('#total_time').data('server') - $('#total_time').text());
+			var task_sec = Number($('#total_time').data('server') - $('#total_time').data('task'));
+			var glob_time = {
+				hms: { h: '00', m: '00', s: '00' },	
+				toString: function() {
+					return (this.hms.h == '00') ? (this.hms.m + ':' + this.hms.s) : 
+						(this.hms.h + ':' + this.hms.m + ':' + this.hms.s)
+				}
+			};
+			var task_time = {
+				hms: { h: '00', m: '00', s: '00' },	
+				toString: function() {
+					return (this.hms.h == '00') ? (this.hms.m + ':' + this.hms.s) : 
+						(this.hms.h + ':' + this.hms.m + ':' + this.hms.s)
+				}
+			};
+
+			$('.game__timer').html('&nbsp;');
+			$('.game__timer').css('visibility', 'visible').fadeIn();
+
+			var encode_tooltips = [ '{{tooltip1}}','{{tooltip2}}','{{tooltip3}}' ];
+
+			var m60  = true, b60  = false, 
+				m120 = true, b120 = false,
+				m180 = true, b180 = false;
+
+			setInterval(() => {
+				toHms(task_time, task_sec);
+				toHms(glob_time, glob_sec);
+				$('.game__timer').html(
+					'<span id="task_time" title="текущее задание">' + task_time.toString() + '</span> | ' +
+					login + ' | ' +					
+					'<span id="total_time" title="общее время">' + glob_time.toString() + '</span>'
+				);
+
+				$('#form-game input[name=score]').val(glob_time.toString());				
+
+				// modal
+				if (task_sec == interval * 60) {
+					var decrypt = CryptoJS.AES.decrypt(encode_tooltips[0], "shkRqhijOdhTu6R2nsuvLoagxsZEYC2oLUBeNTre28J9Hisoj1Lh2ykQvBmT6gcq").toString(CryptoJS.enc.Utf8);
+					showTooltip(decrypt);
+					addTooltipToHtml(decrypt);
+					m60 = false;
+				}
+
+				// body
+				if (task_sec > interval * 60 && m60 && !b60) {
+					addTooltipToHtml(CryptoJS.AES.decrypt(encode_tooltips[0], "shkRqhijOdhTu6R2nsuvLoagxsZEYC2oLUBeNTre28J9Hisoj1Lh2ykQvBmT6gcq").toString(CryptoJS.enc.Utf8));
+					b60 = true;
+				}
+
+				// modal
+				if (task_sec == interval * 120) {
+					var decrypt = CryptoJS.AES.decrypt(encode_tooltips[1], "shkRqhijOdhTu6R2nsuvLoagxsZEYC2oLUBeNTre28J9Hisoj1Lh2ykQvBmT6gcq").toString(CryptoJS.enc.Utf8);
+					showTooltip(decrypt);
+					addTooltipToHtml(decrypt);
+					m120 = false;
+				}
+
+				// body
+				if (task_sec > interval * 120 && m120 && !b120) {
+					addTooltipToHtml(CryptoJS.AES.decrypt(encode_tooltips[1], "shkRqhijOdhTu6R2nsuvLoagxsZEYC2oLUBeNTre28J9Hisoj1Lh2ykQvBmT6gcq").toString(CryptoJS.enc.Utf8));
+					b120 = true;
+				}
+
+				// modal
+				if (task_sec == interval * 180) {
+					var decrypt = CryptoJS.AES.decrypt(encode_tooltips[2], "shkRqhijOdhTu6R2nsuvLoagxsZEYC2oLUBeNTre28J9Hisoj1Lh2ykQvBmT6gcq").toString(CryptoJS.enc.Utf8);
+					showTooltip(decrypt);
+					addTooltipToHtml(decrypt);
+					m180 = false;
+				}
+
+				// body
+				if (task_sec > interval * 180 && m180 && !b180) {
+					addTooltipToHtml(CryptoJS.AES.decrypt(encode_tooltips[2], "shkRqhijOdhTu6R2nsuvLoagxsZEYC2oLUBeNTre28J9Hisoj1Lh2ykQvBmT6gcq").toString(CryptoJS.enc.Utf8));
+					b180 = true;
+				}
+
+				glob_sec++;
+				task_sec++;
+			}, 1000);
+		};
+	</script>
+</body>
+</html>

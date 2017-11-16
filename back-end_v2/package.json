@@ -1,0 +1,21 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Backend part",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "ss",
+  "license": "ISC",
+  "devDependencies": {
+    "cookies": "^0.7.1",
+    "del": "^3.0.0",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "lowdb": "^1.0.0",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  }
+}
